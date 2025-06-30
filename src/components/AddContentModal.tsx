@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Upload, Plus, Trash2, FileText, Play, HelpCircle, Code, Image, Folder, File, FolderOpen, Edit3, Copy, Download } from 'lucide-react';
+import { X, Plus, Trash2, FileText, Play, HelpCircle, Code } from 'lucide-react';
 import { useCourses } from '../context/CourseContext';
 import { MCQOption, SolutionFile } from '../types';
 
@@ -96,6 +96,7 @@ const AddContentModal: React.FC<AddContentModalProps> = ({ courseId, onClose }) 
           updatedAt: new Date(),
         },
         duration: videoData.duration,
+        updatedAt: new Date()
       });
       onClose();
     } catch (error) {
@@ -126,6 +127,7 @@ const AddContentModal: React.FC<AddContentModalProps> = ({ courseId, onClose }) 
           updatedAt: new Date(),
         },
         duration: 5,
+        updatedAt: new Date()
       });
       onClose();
     } catch (error) {
@@ -157,6 +159,7 @@ const AddContentModal: React.FC<AddContentModalProps> = ({ courseId, onClose }) 
           updatedAt: new Date(),
         },
         duration: 30,
+        updatedAt: new Date()
       });
       onClose();
     } catch (error) {
@@ -187,6 +190,7 @@ const AddContentModal: React.FC<AddContentModalProps> = ({ courseId, onClose }) 
           updatedAt: new Date(),
         },
         duration: pdfData.pages * 2,
+        updatedAt: new Date()
       });
       onClose();
     } catch (error) {
@@ -339,22 +343,7 @@ const AddContentModal: React.FC<AddContentModalProps> = ({ courseId, onClose }) 
     return languageMap[ext || ''] || 'text';
   };
 
-  const addTag = (tags: string[], setData: Function) => {
-    if (tagInput.trim() && !tags.includes(tagInput.trim())) {
-      setData((prev: any) => ({
-        ...prev,
-        tags: [...prev.tags, tagInput.trim()]
-      }));
-      setTagInput('');
-    }
-  };
 
-  const removeTag = (tagToRemove: string, setData: Function) => {
-    setData((prev: any) => ({
-      ...prev,
-      tags: prev.tags.filter((tag: string) => tag !== tagToRemove)
-    }));
-  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -810,7 +799,7 @@ const AddContentModal: React.FC<AddContentModalProps> = ({ courseId, onClose }) 
                           <input
                             type="file"
                             multiple
-                            webkitdirectory=""
+                            data-webkitdirectory="true"
                             onChange={(e) => e.target.files && handleFolderUpload(e.target.files, file.id)}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                           />
